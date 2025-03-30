@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookstore API Frontend</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        button {
+            padding: 10px;
+            margin: 10px;
+            cursor: pointer;
+        }
+        #books {
+            margin-top: 20px;
+            text-align: left;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <h2>Bookstore API</h2>
+    <button onclick="fetchBooks()">Get All Books</button>
+
+    <div id="books"></div>
+
+    <script>
+        const API_URL = "https://assignment-zynetic.onrender.com/api/books";
+
+        function fetchBooks() {
+            fetch(API_URL)
+                .then(response => response.json())
+                .then(data => {
+                    let bookList = "<h3>Books List:</h3><ul>";
+                    data.forEach(book => {
+                        bookList += `<li><strong>${book.title}</strong> by ${book.author} (Category: ${book.category}, Rating: ${book.rating})</li>`;
+                    });
+                    bookList += "</ul>";
+                    document.getElementById("books").innerHTML = bookList;
+                })
+                .catch(error => {
+                    document.getElementById("books").innerHTML = "<p>Error fetching books.</p>";
+                    console.error("Error:", error);
+                });
+        }
+    </script>
+</body>
+</html>
