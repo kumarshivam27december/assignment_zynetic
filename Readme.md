@@ -46,7 +46,7 @@ POST /api/books (Protected) - Create a Book
 
 GET /api/books - Get All Books with Filters, Search, and Pagination
 
-GET /api/books?author=John&category=Fiction&minRating=4&search=harry&sortBy=price&order=desc&page=1&limit=10
+GET /api/books?author=shivam&category=Fiction&minRating=4&search=math&sortBy=price&order=desc&page=1&limit=10
 
 
 GET /api/books/:id - Get Book by ID
