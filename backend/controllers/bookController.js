@@ -1,16 +1,15 @@
 const Book = require('../models/bookModel');
 
 const createBook = async (req, res) => {
+  const { title, author, category, price, rating, publishedDate } = req.body;
+  
   try {
-    const { title, author, category, price, rating, publishedDate } = req.body;
-    const book = new Book({ title, author, category, price, rating, publishedDate });
-    await book.save();
+    const book = await Book.create({ title, author, category, price, rating, publishedDate });
     res.status(201).json(book);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
 };
-
 const getAllBooks = async (req, res) => {
     try {
       const { author, category, rating, search, sortBy, sortOrder, page = 1, limit = 10 } = req.query;
@@ -53,31 +52,37 @@ const getAllBooks = async (req, res) => {
 const getBookById = async (req, res) => {
   try {
     const book = await Book.findById(req.params.id);
-    if (!book) return res.status(404).json({ message: 'Book not found' });
+    if (!book) {
+      return res.status(404).json({ message: 'Book not found' });
+    }
     res.json(book);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
-const updateBookById = async (req, res) => {
+const updateBook = async (req, res) => {
   try {
-    const updatedBook = await Book.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    if (!updatedBook) return res.status(404).json({ message: 'Book not found' });
-    res.json(updatedBook);
+    const book = await Book.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
+    if (!book) {
+      return res.status(404).json({ message: 'Book not found' });
+    }
+    res.json(book);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
-const deleteBookById = async (req, res) => {
+const deleteBook = async (req, res) => {
   try {
-    const deletedBook = await Book.findByIdAndDelete(req.params.id);
-    if (!deletedBook) return res.status(404).json({ message: 'Book not found' });
+    const book = await Book.findByIdAndDelete(req.params.id);
+    if (!book) {
+      return res.status(404).json({ message: 'Book not found' });
+    }
     res.json({ message: 'Book deleted successfully' });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
-module.exports = { createBook, getAllBooks, getBookById, updateBookById, deleteBookById };
+module.exports = { createBook, getAllBooks, getBookById, updateBook, deleteBook };
