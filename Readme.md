@@ -20,29 +20,29 @@ npm start
 ------Authentication---------
 
 POST /api/auth/signup - User Signup
-    {
-        "email": "test@example.com",
+{
+        "email": "shivam@example.com",
         "password": "password123"
-    }
+}
 
 POST /api/auth/login - User Login
-    {
-        "email": "test@example.com",
+{
+        "email": "shivam@example.com",
         "password": "password123"
-    }
+}
 
 
 ---------------Books-----------
 
 POST /api/books (Protected) - Create a Book
-    {
-        "title": "Book Title",
-        "author": "Author Name",
+{
+        "title": "Title of the Book",
+        "author": "Name of the author",
         "category": "Fiction",
-        "price": 19.99,
+        "price": 20,
         "rating": 4.5,
-        "publishedDate": "2024-03-01"
-    }
+        "publishedDate": "2024-03-30"
+}
 
 GET /api/books - Get All Books with Filters, Search, and Pagination
 
